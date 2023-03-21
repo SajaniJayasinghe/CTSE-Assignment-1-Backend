@@ -1,29 +1,29 @@
 const mongoose = require("mongoose");
-const placesSchema = mongoose.Schema({
+const PlaceSchema = mongoose.Schema({
   type: {
     type: String,
-    required: false
+    // required: false
   }, //beach, mountain, waterfalls
 
-  name: {
-    type: String,
-    required: true
-  },
+  // name: {
+  //   type: String,
+  //   required: true
+  // },
 
-  description: {
-    type: String,
-    required: true
-  },
+  // description: {
+  //   type: String,
+  //   required: true
+  // },
 
   // placeImage: {
   //   type: String,
   //   required: false
   // },
 
-  city: {
-    type: String,
-    required: false
-  }
+  // city: {
+  //   type: String,
+  //   required: false
+  // }
 
   // facilities: {
   //   type: Array,
@@ -50,5 +50,4 @@ const placesSchema = mongoose.Schema({
   // }
 });
 
-const Places = mongoose.model("places", placesSchema);
-module.exports = Places;
+module.exports = mongoose.model("Places", PlaceSchema);

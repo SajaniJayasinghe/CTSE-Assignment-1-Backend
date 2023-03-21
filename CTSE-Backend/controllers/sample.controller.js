@@ -1,5 +1,6 @@
 const firebaseService = require("../firebase/firebase.service");
 const firebaseUtils = require("../firebase/firebse.util");
+
 const SampleFunc = async (req, res) => {
   try {
     const file = req.file;
@@ -10,7 +11,7 @@ const SampleFunc = async (req, res) => {
     await firebaseService.uploadToFirebase(file, imageName);
 
     res.status(200).send({
-      url: url
+      url: url,
     });
     console.log(url);
   } catch (e) {
@@ -19,5 +20,5 @@ const SampleFunc = async (req, res) => {
 };
 
 module.exports = {
-  SampleFunc
+  SampleFunc,
 };
