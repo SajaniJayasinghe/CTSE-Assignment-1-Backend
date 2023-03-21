@@ -1,18 +1,10 @@
 const mongoose = require("mongoose");
 const placesSchema = mongoose.Schema({
-  type: [
-    {
-      moutain: {
-        type: String,
-        required: false
-      },
+  type: {
+    type: String,
+    required: false
+  }, //beach, mountain, waterfalls
 
-      beach: {
-        type: String,
-        required: false
-      }
-    }
-  ],
   name: {
     type: String,
     required: true
@@ -23,37 +15,39 @@ const placesSchema = mongoose.Schema({
     required: true
   },
 
-  placeImage: {
-    type: String,
-    required: false
-  },
+  // placeImage: {
+  //   type: String,
+  //   required: false
+  // },
 
   city: {
     type: String,
     required: false
-  },
-
-  facilities: {
-    wifi: {
-      type: String,
-      required: false
-    },
-
-    parking: {
-      type: String,
-      required: false
-    },
-
-    food: {
-      type: String,
-      required: false
-    },
-
-    smoking: {
-      type: String,
-      required: false
-    }
   }
+
+  // facilities: {
+  //   type: Array,
+  //   required: false
+  // }
+  // wifi: {
+  //   type: Boolean,
+  //   required: false
+  // },
+
+  // parking: {
+  //   type: Boolean,
+  //   required: false
+  // },
+
+  // food: {
+  //   type: Boolean,
+  //   required: false
+  // },
+
+  // no_smoking: {
+  //   type: Boolean,
+  //   required: false
+  // }
 });
 
 const Places = mongoose.model("places", placesSchema);

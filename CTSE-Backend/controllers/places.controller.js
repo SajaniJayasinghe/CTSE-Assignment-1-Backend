@@ -1,21 +1,37 @@
 const Places = require("../models/places.models");
 
+// const NewPlace = async (req, res) => {
+//   let newPlace = new Places(req.body);
+//   newPlace.save((err) => {
+//     if (err) {
+//       return res.status(400).json({
+//         error: err
+//       });
+//     }
+//     return res
+//       .status(200)
+//       .send({
+//         places: newPlace
+//       })
+//       .json({
+//         success: "New Place added successfully!!!"
+//       });
+//   });
+// };
+
 const NewPlace = async (req, res) => {
   let newPlace = new Places(req.body);
   newPlace.save((err) => {
     if (err) {
       return res.status(400).json({
-        error: err
+        error: err.message
       });
     }
-    return res
-      .status(200)
-      .send({
-        place: newPlace
-      })
-      .json({
-        success: "New Place add successfully!!!"
-      });
+    console.log(err.message);
+    return res.status(200).json({
+      success: "New Blog add Successfully !!",
+      place: newPlace
+    });
   });
 };
 
