@@ -2,19 +2,17 @@ const Places = require("../models/places.models");
 
 const NewPlace = async (req, res) => {
   let newPlace = new Places(req.body);
-  newPlace.save((err) => {
-    if (err) {
-      return res.status(400).json({
-        error: err
-      });
-    }
-    return res
+  Places.create(newPlace).then((place) => {
+    res
       .status(200)
-      .send({
-        place: newPlace
-      })
       .json({
-        success: "New Place add successfully!!!"
+        success: "New Added add Successfully !!",
+        place: place,
+      })
+      .catch((err) => {
+        res.status(400).json({
+          error: err.message,
+        });
       });
   });
 };
@@ -23,12 +21,12 @@ const GetPlace = async (req, res) => {
   Places.find().exec((err, places) => {
     if (err) {
       return res.status(400).json({
-        error: err
+        error: err,
       });
     }
     return res.status(200).json({
       success: true,
-      existingplaces: places
+      existingplaces: places,
     });
   });
 };
@@ -38,12 +36,12 @@ const GetOnePlace = async (req, res) => {
   Places.findById(placeID, (err, place) => {
     if (err) {
       return res.status(400).json({
-        error: err
+        error: err,
       });
     }
     return res.status(200).json({
       success: true,
-      existingplaces: place
+      existingplaces: place,
     });
   });
 };
@@ -52,16 +50,16 @@ const UpdatePlace = (req, res) => {
   Places.findByIdAndUpdate(
     req.params.placeID,
     {
-      $set: req.body
+      $set: req.body,
     },
     (err) => {
       if (err) {
         return res.status(400).json({
-          error: err
+          error: err,
         });
       }
       return res.status(200).json({
-        success: "Updated Successfully"
+        success: "Updated Successfully",
       });
     }
   );
@@ -72,12 +70,12 @@ const DeletePlace = (req, res) => {
     if (err)
       return res.status(400).json({
         message: "Deletion Unsuccessfull",
-        err
+        err,
       });
 
     return res.json({
       message: "Deletion Successfull",
-      deleteplaces
+      deleteplaces,
     });
   });
 };
@@ -87,5 +85,5 @@ module.exports = {
   GetPlace,
   GetOnePlace,
   UpdatePlace,
-  DeletePlace
+  DeletePlace,
 };

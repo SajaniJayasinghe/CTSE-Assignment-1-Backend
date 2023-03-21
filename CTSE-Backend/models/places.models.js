@@ -1,60 +1,53 @@
 const mongoose = require("mongoose");
-const placesSchema = mongoose.Schema({
-  type: [
-    {
-      moutain: {
-        type: String,
-        required: false
-      },
-
-      beach: {
-        type: String,
-        required: false
-      }
-    }
-  ],
-  name: {
+const PlaceSchema = mongoose.Schema({
+  type: {
     type: String,
-    required: true
-  },
+    // required: false
+  }, //beach, mountain, waterfalls
 
-  description: {
-    type: String,
-    required: true
-  },
+  // name: {
+  //   type: String,
+  //   required: true
+  // },
 
-  placeImage: {
-    type: String,
-    required: false
-  },
+  // description: {
+  //   type: String,
+  //   required: true
+  // },
 
-  city: {
-    type: String,
-    required: false
-  },
+  // placeImage: {
+  //   type: String,
+  //   required: false
+  // },
 
-  facilities: {
-    wifi: {
-      type: String,
-      required: false
-    },
+  // city: {
+  //   type: String,
+  //   required: false
+  // }
 
-    parking: {
-      type: String,
-      required: false
-    },
+  // facilities: {
+  //   type: Array,
+  //   required: false
+  // }
+  // wifi: {
+  //   type: Boolean,
+  //   required: false
+  // },
 
-    food: {
-      type: String,
-      required: false
-    },
+  // parking: {
+  //   type: Boolean,
+  //   required: false
+  // },
 
-    smoking: {
-      type: String,
-      required: false
-    }
-  }
+  // food: {
+  //   type: Boolean,
+  //   required: false
+  // },
+
+  // no_smoking: {
+  //   type: Boolean,
+  //   required: false
+  // }
 });
 
-const Places = mongoose.model("places", placesSchema);
-module.exports = Places;
+module.exports = mongoose.model("Places", PlaceSchema);
