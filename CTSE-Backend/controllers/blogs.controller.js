@@ -2,88 +2,88 @@ const Blogs = require("../models/blogs.models");
 
 //add new blog
 const NewBlog = async (req, res) => {
-    let newBlog = new Blogs(req.body);
-    Blogs.create((err) => {
-      if (err) {
-        return res.status(400).json({
-          error: err,
-        });
-      }
-      return res.status(200).json({
-        success: "New Blog add Successfully !!",
-        blog :newBlog,
-       });
-      });
-  };
-  
+  const { blogName, description, blogImage } = req.body;
+    let createdBlog = new Blogs({
+      blogName,
+      description,
+      blogImage
+    });
+try {
+  await createdBlog.save();
+  res.status(200).json({
+    success: true,
+    message: "Blog Added Successfully !!",
+    blog: createdBlog
+  });
+} catch (err) {
+  res.status(400).json({
+    error: err
+  });
+}
+};
+
   //get all blogs
   const GetBlog = async (req, res) => {
-    Blogs.find().exec((err, blogs) => {
-      if (err) {
-        return res.status(400).json({
-          error: err,
-        });
-      }
-      return res.status(200).json({
+    try {
+      let blogs = await Blogs.find();
+      res.status(200).json({
         success: true,
-        existingBlogs: blogs,
+        existingblogs: blogs
       });
-    });
+    } catch (err) {
+      res.status(400).json({
+        error: err
+      });
+    }
   };
+  
 
   //get one blogs 
   const GetOneBlog = async (req, res) => {
-    let BlogID = req.params.blogID;
-    Blogs.findById(BlogID, (err, blog) => {
-      if (err) {
-        return res.status(400).json({
-          error: err,
-        });
-      }
-      return res.status(200).json({
+    try {
+      let blog = await Blogs.findById(req.params.blogID);
+      res.status(200).json({
         success: true,
-        existingBlogs: blog,
+        existingblog: blog
       });
-    });
+    } catch (err) {
+      res.status(400).json({
+        error: err
+      });
+    }
   };
   
+  
   //update blog details  
-  const UpdateBlog = (req, res) => {
-    Blogs.findByIdAndUpdate(
-      req.params.blogID,
-      {
-        $set: req.body,
-      },
-      (err) => {
-        if (err) {
-          return res.status(400).json({
-            error: err,
-          });
-        }
-        return res.status(200).json({
-          success: "Updated Successfully",
-        });
-      }
-    );
+  const UpdateBlog = async (req, res) => {
+    try {
+      const blogID = req.params.blogID;
+      const updateBlog = await Blogs.findByIdAndUpdate(blogID, {
+        $set: req.body
+      });
+      res.status(200).send({ success: true, updateBlog: updateBlog });
+    } catch (error) {
+      res.status(500).send({ status: "Error with id", error: error.message });
+    }
   };
+  
 
 //delete blog 
   const DeleteBlog = (req, res) => {
-    Blogs.findByIdAndRemove(req.params.blogID).exec(
-      (err, deleteblogs) => {
-        if (err)
-          return res.status(400).json({
-            message: "Deletion Unsuccessfull",
-            err,
-          });
-  
-        return res.json({
-          message: "Deletion Successfull",
-          deleteblogs,
-        });
-      }
-    );
-  };
+    Blogs.findByIdAndDelete(req.params.blogID)
+    .then((blog) => {
+      res.status(200).json({
+        success: true,
+        message: "Blog Deleted Successfully !!",
+        blog: blog
+      });
+    })
+    .catch((err) => {
+      res.status(400).json({
+        error: err
+      });
+    });
+};
 
   module.exports = {
     NewBlog,
