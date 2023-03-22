@@ -8,8 +8,13 @@ const {
   UpdatePlace,
   DeletePlace
 } = require("../controllers/places.controller");
+// const multerMiddleware = require("../middleware/multer.middlewear");
 
-PlaceRouter.post("/addplace", NewPlace);
+PlaceRouter.post(
+  "/addplace",
+  // multerMiddleware.multerUploader.single("picture"),
+  NewPlace
+);
 PlaceRouter.get("/getplace", GetPlace);
 PlaceRouter.get("/:placeID", GetOnePlace);
 PlaceRouter.put("/update/:placeID", UpdatePlace);
