@@ -3,7 +3,7 @@ const User = require("../models/user.models");
 //user register
 const RegisterUser = async (req, res) => {
   try {
-    const { name, email, phoneNumber, password } = req.body;
+    const { name, email, password } = req.body;
     const existingUser = await User.findOne({ email: email });
 
     if (existingUser) {
@@ -13,7 +13,6 @@ const RegisterUser = async (req, res) => {
     const createdUser = {
       name,
       email,
-      phoneNumber,
       password,
       role: "User",
     };
