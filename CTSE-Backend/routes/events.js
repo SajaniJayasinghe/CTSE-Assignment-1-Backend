@@ -8,11 +8,11 @@ const {
   UpdateEvent,
   DeleteEvent,
 } = require("../controllers/events.controller");
-// const multerMiddleware = require("../middleware/multer.middlewear");
+const multerMiddleware = require("../middleware/multer.middlewear");
 
 EventRouter.post(
   "/addevent",
-  // multerMiddleware.multerUploader.single("picture"),
+  multerMiddleware.multerUploader.single("picture"),
   NewEvent
 );
 EventRouter.get("/getevent", GetEvent);
