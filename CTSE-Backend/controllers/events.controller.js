@@ -10,8 +10,15 @@ const NewEvent = async (req, res) => {
 
   // await firebaseService.uploadToFirebase(file, imageName);
 
-  const { type, event_name, description, location, date, ticket_price } =
-    req.body;
+  const {
+    type,
+    event_name,
+    description,
+    location,
+    date,
+    ticket_price,
+    // picture,
+  } = req.body;
   const createdEvent = new Events({
     type,
     event_name,
@@ -19,6 +26,7 @@ const NewEvent = async (req, res) => {
     location,
     date,
     ticket_price,
+    picture,
     // picture: url
   });
   try {
