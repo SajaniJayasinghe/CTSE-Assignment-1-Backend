@@ -4,7 +4,6 @@ const firebaseUtils = require("../firebase/firebse.util");
 
 const NewEvent = async (req, res) => {
   const file = req.file;
-
   const imageName = `Image_${Date.now()}`;
   const url = firebaseUtils.generateFirebaseStorageURL(imageName);
 

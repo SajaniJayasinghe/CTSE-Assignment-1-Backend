@@ -6,13 +6,13 @@ const {
   GetPlace,
   GetOnePlace,
   UpdatePlace,
-  DeletePlace
+  DeletePlace,
 } = require("../controllers/places.controller");
-// const multerMiddleware = require("../middleware/multer.middlewear");
+const multerMiddleware = require("../middleware/multer.middlewear");
 
 PlaceRouter.post(
   "/addplace",
-  // multerMiddleware.multerUploader.single("picture"),
+  multerMiddleware.multerUploader.single("picture"),
   NewPlace
 );
 PlaceRouter.get("/getplace", GetPlace);
