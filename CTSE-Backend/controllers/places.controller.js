@@ -1,14 +1,13 @@
 const Places = require("../models/places.models");
-// const firebaseService = require("../firebase/firebase.service");
-// const firebaseUtils = require("../firebase/firebse.util");
+const firebaseService = require("../firebase/firebase.service");
+const firebaseUtils = require("../firebase/firebse.util");
 
 const NewPlace = async (req, res) => {
-  // const file = req.file;
+  const file = req.file;
+  const imageName = `Image_${Date.now()}`;
+  const url = firebaseUtils.generateFirebaseStorageURL(imageName);
 
-  // const imageName = `Image_${Date.now()}`;
-  // const url = firebaseUtils.generateFirebaseStorageURL(imageName);
-
-  // await firebaseService.uploadToFirebase(file, imageName);
+  await firebaseService.uploadToFirebase(file, imageName);
 
   const { type, name, description, city, facilities } = req.body;
   const createdPlace = new Places({
@@ -16,33 +15,33 @@ const NewPlace = async (req, res) => {
     name,
     description,
     city,
-    facilities
-    // picture: url
+    facilities,
+    picture: url,
   });
   try {
     await createdPlace.save();
     res.status(200).json({
       success: true,
       message: "Place Added Successfully !!",
-      place: createdPlace
+      place: createdPlace,
     });
   } catch (err) {
     res.status(400).json({
-      error: err
+      error: err,
     });
   }
 };
 
 const GetPlace = async (req, res) => {
   try {
-    let places = await Places.find();
+    let Place = await Places.find();
     res.status(200).json({
       success: true,
-      existingplaces: places
+      Place: Place,
     });
   } catch (err) {
     res.status(400).json({
-      error: err
+      error: err,
     });
   }
 };
@@ -52,11 +51,11 @@ const GetOnePlace = async (req, res) => {
     let place = await Places.findById(req.params.placeID);
     res.status(200).json({
       success: true,
-      existingplace: place
+      existingplace: place,
     });
   } catch (err) {
     res.status(400).json({
-      error: err
+      error: err,
     });
   }
 };
@@ -65,7 +64,7 @@ const UpdatePlace = async (req, res) => {
   try {
     const placeID = req.params.placeID;
     const updatePlace = await Places.findByIdAndUpdate(placeID, {
-      $set: req.body
+      $set: req.body,
     });
     res.status(200).send({ success: true, updatePlace: updatePlace });
   } catch (error) {
@@ -79,12 +78,12 @@ const DeletePlace = (req, res) => {
       res.status(200).json({
         success: true,
         message: "Place Deleted Successfully !!",
-        place: place
+        place: place,
       });
     })
     .catch((err) => {
       res.status(400).json({
-        error: err
+        error: err,
       });
     });
 };
@@ -94,5 +93,5 @@ module.exports = {
   GetPlace,
   GetOnePlace,
   UpdatePlace,
-  DeletePlace
+  DeletePlace,
 };
