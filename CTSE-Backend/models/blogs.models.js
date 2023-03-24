@@ -1,6 +1,13 @@
 const mongoose = require("mongoose");
 const BlogsSchema = mongoose.Schema({
 
+  type: [
+    {
+      type: String,
+      required: true,
+    },
+  ],
+
   blogName: {
     type: String,
     required: true,
@@ -14,6 +21,11 @@ const BlogsSchema = mongoose.Schema({
   blogImage: {
     type: String,
     required: false,
+  },
+
+  date: {
+    type: String,
+    required: true,
   },
 });
 

@@ -2,11 +2,13 @@ const Blogs = require("../models/blogs.models");
 
 //add new blog
 const NewBlog = async (req, res) => {
-  const { blogName, description, blogImage } = req.body;
+  const { type, blogName, description, blogImage, date } = req.body;
     let createdBlog = new Blogs({
+      type,
       blogName,
       description,
-      blogImage
+      blogImage,
+      date
     });
 try {
   await createdBlog.save();
