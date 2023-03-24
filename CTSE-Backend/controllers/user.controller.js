@@ -3,7 +3,7 @@ const User = require("../models/user.models");
 //user register
 const RegisterUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, picture } = req.body;
     const existingUser = await User.findOne({ email: email });
 
     if (existingUser) {
@@ -14,6 +14,7 @@ const RegisterUser = async (req, res) => {
       name,
       email,
       password,
+      picture,
       role: "User",
     };
 
@@ -66,11 +67,11 @@ const GetUserProfile = async (req, res) => {
 //user profile update
 const UpdateProfile = async (req, res) => {
   try {
-    const { name, phoneNumber } = req.body;
+    const { name, picture } = req.body;
 
     const userUpdate = await User.findByIdAndUpdate(req.User._id, {
       name: name,
-      phoneNumber: phoneNumber,
+      picture: picture,
     });
     res.status(200).send({
       status: "User Profile Updated",

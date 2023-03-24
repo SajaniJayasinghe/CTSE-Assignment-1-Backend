@@ -25,10 +25,12 @@ const HotelSchema = mongoose.Schema({
     required: false,
   },
 
-  facilities: {
-    type: Array,
-    required: false,
-  },
+  facilities: [
+    {
+      type: String,
+      required: false,
+    },
+  ],
 });
 
 module.exports = mongoose.model("Hotels", HotelSchema);
