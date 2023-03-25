@@ -49,10 +49,10 @@ const GetPlace = async (req, res) => {
 
 const GetOnePlace = async (req, res) => {
   try {
-    let place = await Places.findById(req.params.placeID);
+    let Place = await Places.findById(req.params.placeID);
     res.status(200).json({
       success: true,
-      existingplace: place,
+      Place: Place,
     });
   } catch (err) {
     res.status(400).json({
