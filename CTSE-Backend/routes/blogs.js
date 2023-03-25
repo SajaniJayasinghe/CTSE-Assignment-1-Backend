@@ -8,9 +8,9 @@ const {
   UpdateBlog,
   DeleteBlog,
 } = require("../controllers/blogs.controller");
-//   const userauth = require("../middleware/userauth.middleware");
+const multerMiddleware = require("../middleware/multer.middlewear");
 
-BlogRouter.post("/addblog", NewBlog);
+BlogRouter.post("/addblog", multerMiddleware.multerUploader.single("picture"), NewBlog);
 BlogRouter.get("/getblog", GetBlog);
 BlogRouter.get("/getBlog/:blogID", GetOneBlog);
 BlogRouter.put("/update/:blogID", UpdateBlog);

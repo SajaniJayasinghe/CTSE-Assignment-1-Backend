@@ -1,13 +1,22 @@
 const Blogs = require("../models/blogs.models");
+const firebaseService = require("../firebase/firebase.service");
+const firebaseUtils = require("../firebase/firebse.util");
+
 
 //add new blog
 const NewBlog = async (req, res) => {
-  const { type, blogName, description, blogImage, date } = req.body;
-    let createdBlog = new Blogs({
+  const file = req.file;
+  const imageName = `Image_${Date.now()}`;
+  const url = firebaseUtils.generateFirebaseStorageURL(imageName);
+
+  await firebaseService.uploadToFirebase(file, imageName);
+
+  const { type, blogName, description, date } = req.body;
+    const createdBlog = new Blogs({
       type,
       blogName,
       description,
-      blogImage,
+      picture: url,
       date
     });
 try {
@@ -15,7 +24,7 @@ try {
   res.status(200).json({
     success: true,
     message: "Blog Added Successfully !!",
-    blog: createdBlog
+    blog: createdBlog,
   });
 } catch (err) {
   res.status(400).json({

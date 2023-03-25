@@ -18,14 +18,14 @@ const BlogsSchema = mongoose.Schema({
     required: true,
   },
 
-  blogImage: {
+  picture: {
     type: String,
     required: false,
   },
 
   date: {
     type: String,
-    required: true,
+    required: false,
   },
 });
 
