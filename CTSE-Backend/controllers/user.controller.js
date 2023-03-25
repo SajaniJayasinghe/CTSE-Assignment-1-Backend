@@ -3,7 +3,7 @@ const User = require("../models/user.models");
 //user register
 const RegisterUser = async (req, res) => {
   try {
-    const { name, email, phoneNumber, password, role } = req.body;
+    const { name, email, password, picture } = req.body;
     const existingUser = await User.findOne({ email: email });
 
     if (existingUser) {
@@ -13,9 +13,9 @@ const RegisterUser = async (req, res) => {
     const createdUser = {
       name,
       email,
-      phoneNumber,
       password,
-      role
+      picture,
+      role: "User",
     };
 
     const newuser = new User(createdUser);
@@ -38,7 +38,7 @@ const LoginUser = async (req, res) => {
     const token = await User_s.generateAuthToken();
     res.status(200).send({
       token: token,
-      role: User_s.role
+      role: User_s.role,
     });
   } catch (error) {
     res.status(500).send({ error: error.message });
@@ -53,13 +53,13 @@ const GetUserProfile = async (req, res) => {
     res.status(201);
     res.send({
       status: "User Details Fetched",
-      User: req.User
+      User: req.User,
     });
   } catch (error) {
     res.status(500);
     res.send({
       status: "Error with User Profile",
-      error: error.message
+      error: error.message,
     });
   }
 };
@@ -67,15 +67,15 @@ const GetUserProfile = async (req, res) => {
 //user profile update
 const UpdateProfile = async (req, res) => {
   try {
-    const { name, phoneNumber } = req.body;
+    const { name, picture } = req.body;
 
     const userUpdate = await User.findByIdAndUpdate(req.User._id, {
       name: name,
-      phoneNumber: phoneNumber
+      picture: picture,
     });
     res.status(200).send({
       status: "User Profile Updated",
-      User_s: userUpdate
+      User_s: userUpdate,
     });
   } catch (error) {
     res.status(500).send({ error: error.message });
@@ -91,12 +91,12 @@ const ProfileDelete = async (req, res) => {
     const deleteProfile = await User.findByIdAndDelete(LogUser._id);
     res.status(200).send({
       status: "user deleted",
-      user: deleteProfile
+      user: deleteProfile,
     });
   } catch (error) {
     res.status(500).send({
       status: "error with id",
-      error: error.message
+      error: error.message,
     });
   }
 };
@@ -106,5 +106,5 @@ module.exports = {
   LoginUser,
   GetUserProfile,
   UpdateProfile,
-  ProfileDelete
+  ProfileDelete,
 };

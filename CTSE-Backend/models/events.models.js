@@ -1,9 +1,11 @@
 const mongoose = require("mongoose");
 const EventSchema = mongoose.Schema({
-  type: {
-    type: String,
-    required: true,
-  }, //cocktail party,DJ night,Holi,Cultural,Adventure
+  type: [
+    {
+      type: String,
+      required: true,
+    },
+  ],
 
   event_name: {
     type: String,
@@ -26,7 +28,7 @@ const EventSchema = mongoose.Schema({
   },
 
   date: {
-    type: Date,
+    type: String,
     required: true,
   },
 

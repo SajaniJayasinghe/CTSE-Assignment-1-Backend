@@ -1,14 +1,13 @@
 const Events = require("../models/events.models");
-// const firebaseService = require("../firebase/firebase.service");
-// const firebaseUtils = require("../firebase/firebse.util");
+const firebaseService = require("../firebase/firebase.service");
+const firebaseUtils = require("../firebase/firebse.util");
 
 const NewEvent = async (req, res) => {
-  // const file = req.file;
+  const file = req.file;
+  const imageName = `Image_${Date.now()}`;
+  const url = firebaseUtils.generateFirebaseStorageURL(imageName);
 
-  // const imageName = `Image_${Date.now()}`;
-  // const url = firebaseUtils.generateFirebaseStorageURL(imageName);
-
-  // await firebaseService.uploadToFirebase(file, imageName);
+  await firebaseService.uploadToFirebase(file, imageName);
 
   const { type, event_name, description, location, date, ticket_price } =
     req.body;
@@ -19,7 +18,7 @@ const NewEvent = async (req, res) => {
     location,
     date,
     ticket_price,
-    // picture: url
+    picture: url,
   });
   try {
     await createdEvent.save();
